@@ -54,8 +54,8 @@ pipeline {
             echo "Workspace is $WORKSPACE"
             dir("$WORKSPACE/azure-vote") {
                script {
-                  docker.withRegistry('https://hub.docker.com', 'DockerHub') {
-                     def image = docker.build('gspratt97/jenkins-course:latest')
+                  docker.withRegistry('https://registry.hub.docker.com', 'DockerHub') {
+                     def image = docker.build('gspratt97/azure-vote-front')
                      image.push()
                   }
                }
