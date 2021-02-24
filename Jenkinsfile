@@ -49,11 +49,29 @@ pipeline {
             """)
          }
       }
-      stage('Run Trivy') {
+      // stage('Push Container') {
+      //    steps {
+      //       echo "Workspace is $WORKSPACE"
+      //       dir("$WORKSPACE/azure-vote") {
+      //          script {
+      //             docker.withRegistry('https://registry.hub.docker.com', 'DockerHub') {
+      //                def image = docker.build('gspratt97/voting_app_pipeline_add-tests')
+      //                image.push()
+      //             }
+      //          }
+      //       }
+      //    }
+      // }
+      // stage('Run Trivy') {
+      //    steps {
+      //       sh 'trivy --version'
+      //       sh 'trivy -c'
+      //       sh 'trivy gspratt97/voting_app_pipeline_add-tests'
+      //    }
+      // }
+      stage('Run Anchore') {
          steps {
-            sh 'trivy --version'
-            sh 'trivy -c'
-            sh 'trivy gspratt97/voting_app_pipeline_add-tests'
+            anchore name: 'anchore_images'
          }
       }
    }
