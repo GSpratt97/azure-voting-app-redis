@@ -55,7 +55,7 @@ pipeline {
             dir("$WORKSPACE/azure-vote") {
                script {
                   docker.withRegistry('https://registry.hub.docker.com', 'DockerHub') {
-                     def image = docker.build('gspratt97/azure-vote-front')
+                     def image = docker.build('gspratt97/voting-app-pipeline.add-tests')
                      image.push()
                   }
                }
