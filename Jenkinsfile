@@ -49,7 +49,7 @@ pipeline {
             """)
          }
       }
-      stage('Push Container') {
+      stage('Run Trivy') {
          steps {
             sh 'trivy --version'
             sh 'trivy -c'
