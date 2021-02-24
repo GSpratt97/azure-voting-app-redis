@@ -51,15 +51,9 @@ pipeline {
       }
       stage('Push Container') {
          steps {
-            echo "Workspace is $WORKSPACE"
-            dir("$WORKSPACE/azure-vote") {
-               script {
-                  docker.withRegistry('https://registry.hub.docker.com', 'DockerHub') {
-                     def image = docker.build('gspratt97/voting_app_pipeline_add-tests')
-                     image.push()
-                  }
-               }
-            }
+            sh 'trivy --version'
+            sh 'trivy -c'
+            sh 'trivy gspratt97/voting_app_pipeline_add-tests'
          }
       }
    }
