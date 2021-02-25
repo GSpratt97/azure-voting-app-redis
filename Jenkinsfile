@@ -86,8 +86,10 @@ pipeline {
             }
             stage('Run Trivy') {
                steps {
-                  sleep(time: 30, unit: 'SECONDS') {
-                     
+                  sleep(30) {
+                     sh 'trivy --version'
+                     sh 'trivy -c'
+                     sh 'trivy gspratt97/voting_app_pipeline_add-tests'
                   }
                }
             }
