@@ -69,9 +69,28 @@ pipeline {
       //       sh 'trivy gspratt97/voting_app_pipeline_add-tests'
       //    }
       // }
-      stage('Run Anchore') {
-         steps {
-            anchore name: 'anchore-cli'
+      // stage('Run Anchore') {
+      //    steps {
+      //       anchore name: 'anchore-cli'
+      //    }
+      // }
+      stage('Container Scanning') {
+         parallel {
+            stage('Run Anchore') {
+               steps {
+                  pwsh(script: """
+                  Write-Output "gspratt97/voting_app_pipeline_add-tests" > anchore_images
+                  """)
+                  anchore bailOnFail: false, bailOnPluginFail: false, name: 'anchore_images'
+               }
+            }
+            stage('Run Trivy') {
+               steps {
+                  sleep(time: 30, unit: 'SECONDS') {
+                     
+                  }
+               }
+            }
          }
       }
    }
